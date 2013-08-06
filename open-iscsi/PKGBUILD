@@ -2,7 +2,7 @@
 pkgname=open-iscsi
 pkgver=2.0.873
 _pkgver=2.0-873
-pkgrel=4
+pkgrel=5
 pkgdesc="userland tools"
 arch=('i686' 'x86_64')
 url="http://www.open-iscsi.org"
@@ -19,7 +19,6 @@ sha256sums=('7dd9f2f97da417560349a8da44ea4fcfe98bfd5ef284240a2cc4ff8e88ac7cd9'
 build() {
   cd ${srcdir}/${pkgname}-${_pkgver}
 
-
   # include iscsistart in the package
   sed -i -e '/^PROGRAMS = /s/$/ usr\/iscsistart/' Makefile
 
@@ -27,6 +26,11 @@ build() {
   sed -i -e 's/\(\.\/configure\)/ \1 --without-slp/g' Makefile 
 
   make user
+}
+
+package() {
+  cd ${srcdir}/${pkgname}-${_pkgver}
+
   make DESTDIR=${pkgdir} install_user
   
   install -D -m644 ${srcdir}/${pkgname}-${_pkgver}/etc/iscsid.conf ${pkgdir}/etc/iscsi

@@ -14,7 +14,7 @@ source=(http://vboxgtk.googlecode.com/files/vboxgtk-$pkgver.tar.gz)
 install=vboxgtk.install
 sha256sums=('148dd1e0fdf5e47ecb1cd721b91e9e60df0416f65e89bbf63142064da089c880')
 
-build() {
+package() {
   cd $srcdir/$pkgname-$pkgver
   python2 setup.py install --root=$pkgdir/
 }
